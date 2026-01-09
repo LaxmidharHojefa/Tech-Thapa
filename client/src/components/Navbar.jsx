@@ -5,7 +5,7 @@ const Navbar = () => {
     return <>
         <header>
             <div className="container">
-                <div className="logo-brand">
+                <div className="brand-logo">
                     <NavLink to="/">ThapaTechnical</NavLink>
                 </div>
 

@@ -18,7 +18,7 @@ app.use("/api/form", contactRoute);
 
 // server.js -> this file
 app.get("/", (req, res) => {
-    res.status(200).send("Home page of sserver.js");
+    res.status(200).send("Home page of server.js");
 });
 
 app.get("/registration", (req, res) => {
@@ -36,7 +36,11 @@ app.use(errorMiddleware);
 const PORT = 3000;
 
 connectDb().then(() => {
+    console.log("✅ Database connected successfully");
     app.listen(PORT, () => {
         console.log(`server is running on port ${PORT}`);
     });
+}).catch((error) => {
+    console.error("❌ Database connection failed:", error);
+    process.exit(1);
 });

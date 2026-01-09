@@ -1,4 +1,5 @@
 const User = require("../models/user-model");
+const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const bcrypt = require("bcryptjs");
@@ -7,54 +8,51 @@ app.use(express.json());
 
 const home = async (req, res) => {
     try {
-        res.status(200).send("Home page of auth-controller");
+        res.status(200).send({ 
+            msg: "Welcome to Auth API",
+            message: "Home page of auth-controller"});
     }
     catch(error) {
         console.error("Error in home controller: ", error);
-        res.status(500).send("Internal server error");
         next(error);
     }
 };
 
-const registration = async (req, res) => {
+const registration = async (req, res, next) => {
     try {
-        // res.status(200).send("Registration page of auth-controller");
-        console.log(req.body);
+        console.log("📥 Registration request received with body:", req.body);
         const { username, email, phone, password } = req.body;
 
         const userExist = await User.findOne({ email });
 
         if(userExist) {
+            console.log("⚠️ User already exists:", email);
             return res.status(400).send({ msg: "User already exist" });
         }
 
-        // hash the password
-        // 1st and easy method
-        // const saltRound = 10;
-        // const hash_password = await bcrypt.hash(password, saltRound);
-
+        console.log("🔄 Creating user in database...");
         const userCreated = await User.create({ 
             username, 
             email, 
             phone, 
             password 
         });
+        
+        console.log("✅ User created successfully:", userCreated._id);
 
         res.status(201).send({ 
-            // msg: "User registered successfully",
             msg: userCreated, 
             token: await userCreated.generateToken(), 
             userId: userCreated._id.toString()
         });
     }
     catch(error) {
-        console.error("Error in home controller: ", error);
-        res.status(400).send({ msg: "Internal server error" });
+        console.error("❌ Error in registration: ", error);
         next(error);
     }
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         
@@ -78,11 +76,30 @@ const login = async (req, res) => {
         }
     }
     catch(error) {
-        console.error("Error in home controller: ", error);
-        res.status(400).send({ msg: "Internal server error" });
+        console.error("Error in login: ", error);
         next(error);
     }
 };
 
-module.exports = { home, registration, login };
+const getAllUsers = async (req, res, next) => {
+    try {
+        console.log("📊 Fetching all users from Mongoose...");
+        const allUsers = await User.find({});
+        console.log("✅ Found", allUsers.length, "users");
+        console.log("DB Connection:", { 
+            db: mongoose.connection.name, 
+            host: mongoose.connection.host, 
+            port: mongoose.connection.port,
+            readyState: mongoose.connection.readyState 
+        });
+        res.status(200).json({ count: allUsers.length, users: allUsers });
+    } catch(error) {
+        console.error("❌ Error fetching users: ", error);
+        next(error);
+    }
+};
+
+module.exports = { home, registration, login, getAllUsers };
+
+
 

@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { home, registration, login } = require("../controller/auth-controller");
-const signupSchema = require("../validators/auth-validator");
+const { home, registration, login, getAllUsers } = require("../controller/auth-controller");
+const { signupSchema, loginSchema } = require("../validators/auth-validator");
 const validate = require("../middlewares/validate-middleware");
 
+// auth routers
 router.get("/", (req, res) => {
     res.status(200).send("Home page of auth-router");
 });
@@ -20,6 +21,12 @@ router.get("/controller", home);
 
 router.get("/controller/registration", validate(signupSchema), registration)
 
-router.post("/login", login);
+router.get("/", home);
+router.post("/registration", validate(signupSchema), registration);
+router.post("/login", validate(loginSchema), login);
+router.get("/users", getAllUsers);
 
 module.exports = router;
+
+
+

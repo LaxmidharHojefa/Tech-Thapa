@@ -1,11 +1,97 @@
-.container {
-    max-width: 144rem;
-    padding: 4.2rem 2.4rem;
-    display: flex;
-    justify-content: space-between;
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
-.ul {
-    display: flex;
-    gap: 3.2 rem;
+/* Header */
+header {
+  width: 100%;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  /* background: green; */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.brand-logo a {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+/* Nav */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+/* Nav links */
+nav ul li a {
+  text-decoration: none;
+  color: #eaeaea;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+nav ul li a:hover {
+  background-color: #00c6ff;
+  color: #000;
+}
+
+/* Active link (NavLink auto class) */
+nav ul li a.active {
+  background-color: #00c6ff;
+  color: #000;
+  font-weight: 600;
+}
+
+/* ========================= */
+/* Responsive Design */
+/* ========================= */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-top: 15px;
+  }
+
+  nav ul li {
+    width: 100%;
+    text-align: center;
+  }
+
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+  }
+}
+
+
