@@ -6,7 +6,7 @@ const Navbar = () => {
         <header>
             <div className="container">
                 <div className="brand-logo">
-                    <NavLink to="/">ThapaTechnical</NavLink>
+                    <NavLink to="/">Fakhri Technology</NavLink>
                 </div>
 
                 <nav>
@@ -28,6 +28,9 @@ const Navbar = () => {
                         </li>
                         <li>
                             <NavLink to="/service"> Service </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="*"></NavLink>
                         </li>
                     </ul>
                 </nav>

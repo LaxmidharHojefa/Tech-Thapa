@@ -5,6 +5,7 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Service from "./pages/Service.jsx";
+import NotFound from "./pages/NotFound.jsx";
 import Navbar from "./components/Navbar.jsx";
 
 const App = () => {
@@ -18,6 +19,8 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/service" element={<Service />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </>

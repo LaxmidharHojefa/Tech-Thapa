@@ -1,21 +1,21 @@
 import "./Register.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Register = () => {
 
-    const [user, setuser] = ({
+    const [user, setUser] = useState({
         username: "",
         email: "",
         phone: "",
         password: ""
     });
-
+    
     const handleInput = (e) => {
         console.log(e);
         let name = e.target.name;
         let value = e.target.value;
 
-        setuser({ 
+        setUser({ 
             ...user, 
             [name]: value
         });
